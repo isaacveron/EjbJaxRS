@@ -1,0 +1,23 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-ear" name="EjbJaxRS-ear:ear exploded">
+    <output-path>$PROJECT_DIR$/ear/target/EjbJaxRS-ear</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="EjbJaxRS-ear/javaeeApplication/JavaEE" />
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/ear/target/MANIFEST.MF" />
+      </element>
+      <element id="dir-copy" path="$PROJECT_DIR$/ear/src/main/application" />
+      <element id="archive" name="EjbJaxRS-web.war">
+        <element id="artifact" artifact-name="EjbJaxRS-web:war exploded" />
+      </element>
+      <element id="archive" name="EjbJaxRS-ejb.jar">
+        <element id="artifact" artifact-name="EjbJaxRS-ejb:ejb exploded" />
+      </element>
+      <element id="directory" name="lib">
+        <element id="file-copy" path="$MAVEN_REPOSITORY$/com/google/code/gson/gson/2.3/gson-2.3.jar" output-file-name="gson.jar" />
+        <element id="file-copy" path="$MAVEN_REPOSITORY$/org/codehaus/jackson/jackson-core-asl/1.9.12/jackson-core-asl-1.9.12.jar" output-file-name="jackson-core-asl.jar" />
+        <element id="file-copy" path="$MAVEN_REPOSITORY$/org/mybatis/mybatis/3.4.0/mybatis-3.4.0.jar" output-file-name="mybatis.jar" />
+      </element>
+    </root>
+  </artifact>
+</component>

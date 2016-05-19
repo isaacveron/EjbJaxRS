@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="py.pol.una.ii.pw.mapper.VentaMappers">
+
+    <insert id="register" parameterType="py.pol.una.ii.pw.model.Venta" useGeneratedKeys="true">
+        INSERT INTO venta(fecha, client_id)
+        VALUES(#{fecha}, #{client.id})
+    </insert>
+
+    <insert id="registerDetalle" parameterType="py.pol.una.ii.pw.model.VentaDetalle" useGeneratedKeys="true">
+        INSERT INTO ventas_det(cantidad, venta_id, product_id)
+        VALUES(#{cantidad}, #{venta.id}, #{product.id})
+    </insert>
+
+</mapper>

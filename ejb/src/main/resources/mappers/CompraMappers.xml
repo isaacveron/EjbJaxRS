@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="py.pol.una.ii.pw.mapper.CompraMappers">
+
+    <insert id="register" parameterType="py.pol.una.ii.pw.model.Compra" useGeneratedKeys="true">
+        INSERT INTO compra(fecha, provider_id)
+        VALUES(#{fecha}, #{provider.id})
+    </insert>
+
+    <insert id="registerDetalle" parameterType="py.pol.una.ii.pw.model.CompraDetalle" useGeneratedKeys="true">
+        INSERT INTO compra_det(cantidad, compra_id, product_id)
+        VALUES(#{cantidad}, #{compra.id}, #{product.id})
+    </insert>
+
+</mapper>

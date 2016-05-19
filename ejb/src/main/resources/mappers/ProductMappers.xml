@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="py.pol.una.ii.pw.mapper.ProducMappers">
+
+    <insert id="register" parameterType="py.pol.una.ii.pw.model.Product" useGeneratedKeys="true">
+        INSERT INTO product(cantidad, nameproduct, preciounitario)
+        VALUES(#{cantidad}, #{nameProduct}, #{precioUnitario})
+    </insert>
+
+    <update id="merge" parameterType="py.pol.una.ii.pw.model.Product">
+        UPDATE PRODUCT
+        SET
+        cantidad= #{cantidad}
+        WHERE id = #{id}
+    </update>
+</mapper>
