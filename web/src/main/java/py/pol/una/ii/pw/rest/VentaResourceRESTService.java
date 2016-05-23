@@ -101,17 +101,7 @@ public class VentaResourceRESTService {
     public void createVenta(@HeaderParam("token") String token, List<VentaDetalle> detalles) throws InsuficientStockException {
         Response.ResponseBuilder builder = null;
 
-        Date fecha = new Date();
-        this.newVenta = new Venta();
-        this.newClient = new Client();
-
-        newVenta.setClient(clientRepository.findById((long) 1));
-        newVenta.setFecha(fecha);
-
-        System.out.println(newVenta.getClient().getName());
-        System.out.println(newVenta.getFecha());
-
-        registration.register(newVenta, detalles);
+        registration.register(token, detalles);
 
 
         /*try {

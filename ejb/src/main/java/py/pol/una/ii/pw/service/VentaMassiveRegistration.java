@@ -126,7 +126,7 @@ public class VentaMassiveRegistration {
 
         try{
             Client cliente = clientRepository.findById( Long.parseLong( line[1] ) );
-            venta.setClient( cliente );
+//            venta.setClient( cliente );
         }catch ( Exception e){
             throw new ClientNotFoundException("Cliente con id: " + line[1] + " no encontrado");
         }

@@ -26,20 +26,20 @@ public class Venta {
     private List<VentaDetalle> ventaDetalles;
 
     @ManyToOne
-    private Client client;
+    private Usuario usuario;
 
     public Venta() {
     }
 
-    public Venta(Client client, Date fecha, List<VentaDetalle> ventaDetalles) {
-        this.client = client;
+    public Venta(Usuario usuario, Date fecha, List<VentaDetalle> ventaDetalles) {
+        this.usuario = usuario;
         this.fecha = fecha;
         this.ventaDetalles = ventaDetalles;
     }
 
-    public Venta(Date fecha, Client client) {
+    public Venta(Date fecha, Usuario usuario) {
         this.fecha = fecha;
-        this.client = client;
+        this.usuario = usuario;
     }
 
     public long getId() {
@@ -66,12 +66,12 @@ public class Venta {
         this.ventaDetalles = ventaDetalles;
     }
 
-    public Client getClient() {
-        return client;
+    public Usuario getClient() {
+        return usuario;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
+    public void setClient(Usuario usuario) {
+        this.usuario = usuario;
     }
 
 

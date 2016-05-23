@@ -41,9 +41,6 @@ public class Provider implements Serializable {
     @Size(min = 1, max = 25)
     private String name;
 
-    @OneToMany(mappedBy = "provider")
-    private List<Compra> compras;
-
     public long getId() {
         return id;
     }

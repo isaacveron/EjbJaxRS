@@ -5,6 +5,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 import java.util.List;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.omg.CORBA.UnknownUserException;
 
 /**
  * Created by fede on 11/10/15.
@@ -28,20 +29,20 @@ public class Compra {
     private List<CompraDetalle> compraDetalles;
 
     @ManyToOne
-    private Provider provider;
+    private Usuario usuario;
 
     public Compra() {
     }
 
-    public Compra(Date fecha, Provider provider){
+    public Compra(Date fecha, Usuario usuario){
         this.fecha=fecha;
-        this.provider=provider;
+        this.usuario=usuario;
     }
 
-    public Compra(Date fecha, List<CompraDetalle> compraDetalles, Provider provider) {
+    public Compra(Date fecha, List<CompraDetalle> compraDetalles, Usuario usuario) {
         this.fecha = fecha;
         this.compraDetalles = compraDetalles;
-        this.provider = provider;
+        this.usuario = usuario;
     }
 
     public long getId() {
@@ -68,11 +69,11 @@ public class Compra {
         this.compraDetalles = compraDetalles;
     }
 
-    public Provider getProvider() {
-        return provider;
+    public Usuario getProvider() {
+        return usuario;
     }
 
-    public void setProvider(Provider provider) {
-        this.provider = provider;
+    public void setProvider(Usuario usuario) {
+        this.usuario = usuario;
     }
 }

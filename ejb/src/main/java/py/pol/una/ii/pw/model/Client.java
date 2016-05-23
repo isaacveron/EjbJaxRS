@@ -25,9 +25,6 @@ public class Client implements Serializable {
     @Size(min = 1, max = 25)
     private String name;
 
-    @OneToMany(mappedBy = "client")
-    private List<Venta> venta;
-
 
     public long getId() {
         return id;
@@ -50,7 +47,6 @@ public class Client implements Serializable {
 
     public Client(String name, List<Venta> venta) {
         this.name = name;
-        this.venta = venta;
     }
 
     public Client(String name) {

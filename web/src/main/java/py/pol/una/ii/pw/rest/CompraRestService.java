@@ -102,14 +102,7 @@ public class CompraRestService {
     public void createCompra(@HeaderParam("token") String token, List<CompraDetalle> detalles) {
         Response.ResponseBuilder builder = null;
 
-        Date fecha = new Date();
-        this.newCompra = new Compra();
-        this.newProvider = new Provider();
-
-        newCompra.setProvider(providerRepository.findById((long) 1));
-        newCompra.setFecha(fecha);
-
-        registration.register(newCompra, detalles);
+        registration.register(token, detalles);
         /*try {
             registration.register(newCompra, compraDetalleList);
             builder = Response.ok();

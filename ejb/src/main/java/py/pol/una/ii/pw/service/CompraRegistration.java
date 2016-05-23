@@ -18,6 +18,7 @@ package py.pol.una.ii.pw.service;
 
 import py.pol.una.ii.pw.data.ComprasRepository;
 import py.pol.una.ii.pw.data.ProductRepository;
+import py.pol.una.ii.pw.data.UsuarioRepository;
 import py.pol.una.ii.pw.model.Compra;
 import py.pol.una.ii.pw.model.CompraDetalle;
 import py.pol.una.ii.pw.model.Product;
@@ -32,7 +33,7 @@ import javax.ejb.TransactionAttributeType;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import java.util.List;
+import java.util.*;
 import java.util.logging.Logger;
 
 import javax.annotation.Resource;
@@ -50,9 +51,7 @@ import javax.validation.ValidationException;
 import javax.validation.Validator;
 import java.io.File;
 import java.io.PrintWriter;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 // The @Stateless annotation eliminates the need for manual transaction demarcation
 @Stateless
@@ -71,6 +70,9 @@ public class CompraRegistration {
     private ProductRepository productRepository;
 
     @Inject
+    private UsuarioRepository usuarioRepository;
+
+    @Inject
     private CompraDetalleRegistration compraDetalleRegistration;
 
     @Inject
@@ -84,14 +86,19 @@ public class CompraRegistration {
 
 
     //@TransactionAttribute( TransactionAttributeType.REQUIRES_NEW )
-    public void register(Compra c, List<CompraDetalle> detalles) throws ValidationException{
+    public void register(String token, List<CompraDetalle> detalles) throws ValidationException{
 
-        validateCompra(c);
+        Compra compra = new Compra();
+        Date fecha = new Date();
+        compra.setProvider(usuarioRepository.findByTokenCompra(token));
+        compra.setFecha(fecha);
+
+        validateCompra(compra);
 
         SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession();
         try {
             CompraMappers Mapper = sqlSession.getMapper(CompraMappers.class);
-            Mapper.register(c);
+            Mapper.register(compra);
             sqlSession.commit();
         } finally {
             sqlSession.close();
@@ -105,8 +112,8 @@ public class CompraRegistration {
             this.productRegistration.merge(p);
 
             //detalle.setProduct( p );
-            detalle.setCompra(c);
-            System.out.println("***********compraid:" + c.getId());
+            detalle.setCompra(compra);
+            System.out.println("***********compraid:" + compra.getId());
             this.compraDetalleRegistration.register(detalle);
         }
 

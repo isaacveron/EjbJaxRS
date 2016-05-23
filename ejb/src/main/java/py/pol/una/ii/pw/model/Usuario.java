@@ -11,6 +11,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @XmlRootElement
@@ -37,6 +38,12 @@ public class Usuario implements Serializable {
 
     @Size(min = 1, max = 25)
     private String rol;
+
+    @OneToMany(mappedBy = "usuario")
+    private List<Compra> compras;
+
+    @OneToMany(mappedBy = "usuario")
+    private List<Venta> venta;
 
 
     public long getId() {

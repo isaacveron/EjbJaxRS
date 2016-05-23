@@ -8,8 +8,8 @@
         <selectKey order="AFTER" keyProperty="id" resultType="long">
             SELECT currval('venta_id_seq')
         </selectKey>
-        INSERT INTO venta(fecha, client_id)
-        VALUES(#{fecha}, #{client.id})
+        INSERT INTO venta(fecha, usuario_id)
+        VALUES(#{fecha}, #{usuario.id})
     </insert>
 
     <select id="findById" parameterType="Long" resultType="py.pol.una.ii.pw.model.Venta">

@@ -131,7 +131,7 @@ public class CompraMassiveRegistration {
 
         try {
             Provider provider = providerRepository.findById( Long.parseLong(line[1]) );
-            compra.setProvider( provider );
+//            compra.setProvider( provider );
         } catch (Exception e) {
             throw new ProviderNotFoundException("Proveedor no encontrado");
         }

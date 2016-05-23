@@ -20,8 +20,10 @@ package py.pol.una.ii.pw.service;
 import org.apache.ibatis.session.SqlSession;
 import py.pol.una.ii.pw.data.ComprasRepository;
 import py.pol.una.ii.pw.data.ProductRepository;
+import py.pol.una.ii.pw.data.UsuarioRepository;
 import py.pol.una.ii.pw.data.VentaRepository;
 import py.pol.una.ii.pw.mapper.VentaMappers;
+import py.pol.una.ii.pw.model.Compra;
 import py.pol.una.ii.pw.model.Product;
 import py.pol.una.ii.pw.model.Venta;
 import py.pol.una.ii.pw.model.VentaDetalle;
@@ -40,6 +42,7 @@ import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.validation.ValidationException;
 import javax.validation.Validator;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -63,6 +66,9 @@ public class VentaRegistration {
     private ProductRepository productRepository;
 
     @Inject
+    private UsuarioRepository usuarioRepository;
+
+    @Inject
     private Validator validator;
 
     @Inject
@@ -72,9 +78,13 @@ public class VentaRegistration {
     private SessionContext context;
 
     @TransactionAttribute( TransactionAttributeType.REQUIRES_NEW )
-    public void register(Venta venta, List<VentaDetalle> detalles) throws InsuficientStockException,ValidationException{
+    public void register(String token, List<VentaDetalle> detalles) throws InsuficientStockException,ValidationException{
 
         try {
+            Venta venta = new Venta();
+            Date fecha = new Date();
+            venta.setClient(usuarioRepository.findByTokenVenta(token));
+            venta.setFecha(fecha);
 
             validateVenta(venta);
             SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession();
