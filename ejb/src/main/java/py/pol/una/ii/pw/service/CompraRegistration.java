@@ -17,6 +17,7 @@
 package py.pol.una.ii.pw.service;
 
 import py.pol.una.ii.pw.data.ComprasRepository;
+import py.pol.una.ii.pw.data.ProductRepository;
 import py.pol.una.ii.pw.model.Compra;
 import py.pol.una.ii.pw.model.CompraDetalle;
 import py.pol.una.ii.pw.model.Product;
@@ -67,6 +68,9 @@ public class CompraRegistration {
     private ProductRegistration productRegistration;
 
     @Inject
+    private ProductRepository productRepository;
+
+    @Inject
     private CompraDetalleRegistration compraDetalleRegistration;
 
     @Inject
@@ -95,15 +99,13 @@ public class CompraRegistration {
 
         for (CompraDetalle detalle : detalles) {
 
-            Product p = detalle.getProduct();
-
+            Product p = productRepository.findById(detalle.getProduct().getId());
             p.setCantidad(p.getCantidad() + detalle.getCantidad());
 
             this.productRegistration.merge(p);
 
             //detalle.setProduct( p );
-            Compra compra = comprasRepository.findById(c.getId());
-            detalle.setCompra(compra);
+            detalle.setCompra(c);
             System.out.println("***********compraid:" + c.getId());
             this.compraDetalleRegistration.register(detalle);
         }

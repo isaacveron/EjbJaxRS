@@ -25,6 +25,7 @@ import py.pol.una.ii.pw.model.VentaDetalle;
 import py.pol.una.ii.pw.service.VentaRegistration;
 import py.pol.una.ii.pw.service.VentaRemove;
 import py.pol.una.ii.pw.util.InsuficientStockException;
+import py.pol.una.ii.pw.util.ValidarVenta;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -45,6 +46,7 @@ import java.util.Date;
  */
 @Path("/ventas")
 @RequestScoped
+@ValidarVenta
 public class VentaResourceRESTService {
     @Inject
     private Logger log;
@@ -76,7 +78,7 @@ public class VentaResourceRESTService {
     @GET
     @Path("/{position:[0-9][0-9]*}")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Venta> listAllVenta(@PathParam("position") int position) {
+    public List<Venta> listAllVenta(@HeaderParam("token") String token, @PathParam("position") int position) {
         // si position es 5 comenzara desde la posicion 5 a traer los elementos
         return repository.findAllOrderedByDate(position);
     }
@@ -84,7 +86,7 @@ public class VentaResourceRESTService {
     @GET
     @Path("/ordenBy/{by_attribute}/{mode}/{position:[0-9][0-9]*}")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Venta> listAllBy(@PathParam("position") int position,@PathParam("mode") String mode, @PathParam("by_attribute") String attribute) {
+    public List<Venta> listAllBy(@HeaderParam("token") String token, @PathParam("position") int position,@PathParam("mode") String mode, @PathParam("by_attribute") String attribute) {
         return repository.findAllOrderedBy(position,mode,attribute);
     }
 
@@ -96,15 +98,12 @@ public class VentaResourceRESTService {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public void createVenta() throws InsuficientStockException {
+    public void createVenta(@HeaderParam("token") String token, List<VentaDetalle> detalles) throws InsuficientStockException {
         Response.ResponseBuilder builder = null;
 
         Date fecha = new Date();
         this.newVenta = new Venta();
         this.newClient = new Client();
-        this.newVentaDetalle = new VentaDetalle();
-        this.newVentaDetalle2 = new VentaDetalle();
-        List<VentaDetalle> ventaDetalleList = new ArrayList<VentaDetalle>();
 
         newVenta.setClient(clientRepository.findById((long) 1));
         newVenta.setFecha(fecha);
@@ -112,15 +111,7 @@ public class VentaResourceRESTService {
         System.out.println(newVenta.getClient().getName());
         System.out.println(newVenta.getFecha());
 
-        newVentaDetalle.setCantidad(10);
-        newVentaDetalle.setProduct(productRepository.findById((long) 1));
-        ventaDetalleList.add(newVentaDetalle);
-
-        newVentaDetalle2.setCantidad(10);
-        newVentaDetalle2.setProduct(productRepository.findById((long)2));
-        ventaDetalleList.add(newVentaDetalle2);
-
-        registration.register(newVenta, ventaDetalleList);
+        registration.register(newVenta, detalles);
 
 
         /*try {

@@ -12,5 +12,6 @@ public interface VentaMappers {
 
     public void register(Venta c);
     public void registerDetalle (VentaDetalle c);
+    public Venta findById(Long id);
 }
 

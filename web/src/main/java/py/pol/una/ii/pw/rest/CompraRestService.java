@@ -23,6 +23,7 @@ import py.pol.una.ii.pw.model.Compra;
 import py.pol.una.ii.pw.model.CompraDetalle;
 import py.pol.una.ii.pw.model.Provider;
 import py.pol.una.ii.pw.service.CompraRegistration;
+import py.pol.una.ii.pw.util.ValidarCompra;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -43,6 +44,7 @@ import java.util.Date;
  */
 @Path("/compras")
 @RequestScoped
+@ValidarCompra
 public class CompraRestService {
     @Inject
     private Logger log;
@@ -77,7 +79,7 @@ public class CompraRestService {
     @GET
     @Path("/ordenBy/{by_attribute}/{mode}/{position:[0-9][0-9]*}")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Compra> listAllBy(@PathParam("position") int position,@PathParam("mode") String mode, @PathParam("by_attribute") String attribute) {
+    public List<Compra> listAllBy(@HeaderParam("token") String token, @PathParam("position") int position,@PathParam("mode") String mode, @PathParam("by_attribute") String attribute) {
         return repository.findAllOrderedBy(position,mode,attribute);
     }
 
@@ -85,7 +87,7 @@ public class CompraRestService {
     @GET
     @Path("/{position:[0-9][0-9]*}")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Compra> listAllCompras(@PathParam("position") int position) {
+    public List<Compra> listAllCompras(@HeaderParam("token") String token, @PathParam("position") int position) {
         // si position es 5 comenzara desde la posicion 5 a traer los elementos
         return repository.findAllOrderedByDate(position);
     }
@@ -97,27 +99,17 @@ public class CompraRestService {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public void createCompra() {
+    public void createCompra(@HeaderParam("token") String token, List<CompraDetalle> detalles) {
         Response.ResponseBuilder builder = null;
 
-        //ObjectMapper mapper = new ObjectMapper().setVisibility(JsonMethod.FIELD, Visibility.ANY);
-        //mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-
-        //System.out.println(mapper);Compra compra, List<CompraDetalle> detalles
         Date fecha = new Date();
         this.newCompra = new Compra();
         this.newProvider = new Provider();
-        this.newCompraDetalle = new CompraDetalle();
-        List<CompraDetalle> compraDetalleList = new ArrayList<CompraDetalle>();
 
         newCompra.setProvider(providerRepository.findById((long) 1));
         newCompra.setFecha(fecha);
 
-        newCompraDetalle.setCantidad(10);
-        newCompraDetalle.setProduct(productRepository.findById((long) 1));
-        compraDetalleList.add(newCompraDetalle);
-
-        registration.register(newCompra, compraDetalleList);
+        registration.register(newCompra, detalles);
         /*try {
             registration.register(newCompra, compraDetalleList);
             builder = Response.ok();

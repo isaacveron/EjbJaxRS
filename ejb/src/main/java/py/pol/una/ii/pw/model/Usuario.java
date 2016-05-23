@@ -4,6 +4,8 @@ package py.pol.una.ii.pw.model;
  * Created by isaacveron on 13/5/16.
  */
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -13,6 +15,7 @@ import java.io.Serializable;
 @Entity
 @XmlRootElement
 @Table(name = "USUARIO")
+@JsonIgnoreProperties
 public class Usuario implements Serializable {
     /** 242352345 **/
     private static final long serialVersionUID = 1L;
@@ -29,9 +32,11 @@ public class Usuario implements Serializable {
     @Size(min = 1, max = 25)
     private String pass;
 
-    @NotNull
     @Size(min = 1, max = 25)
     private String access_token;
+
+    @Size(min = 1, max = 25)
+    private String rol;
 
 
     public long getId() {
@@ -64,5 +69,13 @@ public class Usuario implements Serializable {
     public Usuario(String name, String pass) {
         this.name = name;
         this.pass = pass;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
     }
 }

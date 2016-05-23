@@ -17,61 +17,53 @@
 package py.pol.una.ii.pw.service;
 
 import org.apache.ibatis.session.SqlSession;
-import py.pol.una.ii.pw.data.ProductRepository;
-import py.pol.una.ii.pw.mapper.ProductMappers;
-import py.pol.una.ii.pw.model.Product;
+import py.pol.una.ii.pw.mapper.UsuarioMappers;
+import py.pol.una.ii.pw.model.Usuario;
 import py.pol.una.ii.pw.util.MyBatisUtil;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.validation.Validator;
-
+import java.util.logging.Logger;
 
 // The @Stateless annotation eliminates the need for manual transaction demarcation
 @Stateless
-public class ProductRegistration {
+public class UserService {
+
+    @Inject
+    private Logger log;
 
     @Inject
     private EntityManager em;
 
-    @Inject
-    private ProductRepository productRepository;
 
-    @Inject
-    private ProductRepository repository;
-
-    @Inject
-    private Validator validator;
-
-
-    public void register(Product p){
-
+    public String login(Usuario user) throws Exception {
         SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession();
-        try
-        {
-            ProductMappers Mapper = sqlSession.getMapper(ProductMappers.class);
-            Mapper.register(p);
+        String token;
+        try {
+            Long tiempo = System.currentTimeMillis();
+            token = tiempo.toString();
+            user.setAccess_token(token);
+            UsuarioMappers Mapper = sqlSession.getMapper(UsuarioMappers.class);
+            Mapper.updateToken(user);
             sqlSession.commit();
-        } finally
-        {
+            return token;
+        } finally {
             sqlSession.close();
         }
     }
 
-    public void merge(Product p){
+    public String logout(Usuario user) throws Exception {
         SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession();
-        try
-        {
-            ProductMappers Mapper = sqlSession.getMapper(ProductMappers.class);
-            Mapper.merge(p);
+        String token = "";
+        try {
+            user.setAccess_token(token);
+            UsuarioMappers Mapper = sqlSession.getMapper(UsuarioMappers.class);
+            Mapper.updateToken(user);
             sqlSession.commit();
-        } finally
-        {
+            return token;
+        } finally {
             sqlSession.close();
         }
     }
-
-
-
 }

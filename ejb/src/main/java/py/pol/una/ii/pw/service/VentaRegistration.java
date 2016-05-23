@@ -19,6 +19,7 @@ package py.pol.una.ii.pw.service;
 
 import org.apache.ibatis.session.SqlSession;
 import py.pol.una.ii.pw.data.ComprasRepository;
+import py.pol.una.ii.pw.data.ProductRepository;
 import py.pol.una.ii.pw.data.VentaRepository;
 import py.pol.una.ii.pw.mapper.VentaMappers;
 import py.pol.una.ii.pw.model.Product;
@@ -59,6 +60,9 @@ public class VentaRegistration {
     private ProductRegistration productRegistration;
 
     @Inject
+    private ProductRepository productRepository;
+
+    @Inject
     private Validator validator;
 
     @Inject
@@ -84,8 +88,7 @@ public class VentaRegistration {
 
             for (VentaDetalle detalle : detalles) {
 
-                Product p = detalle.getProduct();
-
+                Product p = productRepository.findById(detalle.getProduct().getId());
                 if (p.getCantidad() - detalle.getCantidad() >= 0) {
                     p.setCantidad(p.getCantidad() - detalle.getCantidad());
                     this.productRegistration.merge(p);
@@ -94,8 +97,7 @@ public class VentaRegistration {
                     throw new InsuficientStockException("Producto con id " + p.getId() + " con stock insuficiente");
                 }
 
-                Venta v = ventaRepository.findById(venta.getId());
-                detalle.setVenta(v);
+                detalle.setVenta(venta);
 
                 ventaDetalleRegistration.register(detalle);
             }

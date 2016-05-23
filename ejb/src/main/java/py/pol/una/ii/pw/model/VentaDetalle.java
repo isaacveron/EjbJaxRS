@@ -1,5 +1,7 @@
 package py.pol.una.ii.pw.model;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -10,6 +12,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @XmlRootElement
 @Table(name = "VENTAS_DET")
+@JsonIgnoreProperties
 public class VentaDetalle {
 
     private static final long serialVersionUID = 1L;

@@ -16,7 +16,10 @@
  */
 package py.pol.una.ii.pw.data;
 
+import org.apache.ibatis.session.SqlSession;
+import py.pol.una.ii.pw.mapper.VentaMappers;
 import py.pol.una.ii.pw.model.Venta;
+import py.pol.una.ii.pw.util.MyBatisUtil;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -33,9 +36,15 @@ public class VentaRepository {
     private EntityManager em;
 
     public Venta findById(Long id) {
-        return em.find(Venta.class, id);
-    }
 
+        SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession();
+        try {
+            VentaMappers Mapper = sqlSession.getMapper(VentaMappers.class);
+            return Mapper.findById(id);
+        } finally {
+            sqlSession.close();
+        }
+    }
 
     public List<Venta> findAllOrderedBy(int position, String mode, String attribute) {
         CriteriaBuilder cb = em.getCriteriaBuilder();

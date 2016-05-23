@@ -5,9 +5,16 @@
 <mapper namespace="py.pol.una.ii.pw.mapper.CompraMappers">
 
     <insert id="register" parameterType="py.pol.una.ii.pw.model.Compra" useGeneratedKeys="true">
+        <selectKey order="AFTER" keyProperty="id" resultType="long">
+            SELECT currval('compra_id_seq')
+        </selectKey>
         INSERT INTO compra(fecha, provider_id)
         VALUES(#{fecha}, #{provider.id})
     </insert>
+
+    <select id="findById" parameterType="Long" resultType="py.pol.una.ii.pw.model.Compra">
+        SELECT * FROM COMPRA WHERE id = #{id}
+    </select>
 
     <insert id="registerDetalle" parameterType="py.pol.una.ii.pw.model.CompraDetalle" useGeneratedKeys="true">
         INSERT INTO compra_det(cantidad, compra_id, product_id)

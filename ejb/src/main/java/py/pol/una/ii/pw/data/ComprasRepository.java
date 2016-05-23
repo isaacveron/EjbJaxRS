@@ -16,7 +16,10 @@
  */
 package py.pol.una.ii.pw.data;
 
+import org.apache.ibatis.session.SqlSession;
+import py.pol.una.ii.pw.mapper.CompraMappers;
 import py.pol.una.ii.pw.model.Compra;
+import py.pol.una.ii.pw.util.MyBatisUtil;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -33,7 +36,14 @@ public class ComprasRepository {
     private EntityManager em;
 
     public Compra findById(Long id) {
-        return em.find(Compra.class, id);
+
+        SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession();
+        try {
+            CompraMappers Mapper = sqlSession.getMapper(CompraMappers.class);
+            return Mapper.findById(id);
+        } finally {
+            sqlSession.close();
+        }
     }
 
 

@@ -50,11 +50,32 @@ INSERT INTO product(cantidad, nameproduct, preciounitario) VALUES (400,'Producto
 INSERT INTO product(cantidad, nameproduct, preciounitario) VALUES (500,'Producto 7', 100);
 INSERT INTO product(cantidad, nameproduct, preciounitario) VALUES (300,'Producto 8', 100);
 
+INSERT INTO usuario(name, pass, rol, access_token) VALUES ('Juan 1', 'pass', 'compra', '');
+INSERT INTO usuario(name, pass, rol, access_token) VALUES ('Juan 1', 'pass', 'venta', '');
+INSERT INTO usuario(name, pass, rol, access_token) VALUES ('Jose 1', 'pass', 'compra', '');
+INSERT INTO usuario(name, pass, rol, access_token) VALUES ('Jose 1', 'pass', 'venta', '');
+INSERT INTO usuario(name, pass, rol, access_token) VALUES ('Marcos 1', 'pass', 'compra', '');
+INSERT INTO usuario(name, pass, rol, access_token) VALUES ('Marcos 1', 'pass', 'venta', '');
+INSERT INTO usuario(name, pass, rol, access_token) VALUES ('Juan 2', 'pass', 'compra', '');
+INSERT INTO usuario(name, pass, rol, access_token) VALUES ('Juan 2', 'pass', 'venta', '');
+INSERT INTO usuario(name, pass, rol, access_token) VALUES ('Jose 2', 'pass', 'compra', '');
+INSERT INTO usuario(name, pass, rol, access_token) VALUES ('Jose 2', 'pass', 'venta', '');
+INSERT INTO usuario(name, pass, rol, access_token) VALUES ('Marcos 2', 'pass', 'compra', '');
+INSERT INTO usuario(name, pass, rol, access_token) VALUES ('Marcos 2', 'pass', 'venta', '');
 
-INSERT INTO USER (name, pass, access_token) VALUES ('asd,'12','13333');
+INSERT INTO compra(fecha, provider_id) VALUES ('2016-05-05',1);
+INSERT INTO compra(fecha, provider_id) VALUES ('2016-05-06',2);
+INSERT INTO compra(fecha, provider_id) VALUES ('2016-05-14',1);
+
+INSERT INTO compra_det(cantidad, compra_id, product_id) VALUES (10,1,4);
+INSERT INTO compra_det(cantidad, compra_id, product_id) VALUES (12,1,5);
+INSERT INTO compra_det(cantidad, compra_id, product_id) VALUES (20,1,1);
+INSERT INTO compra_det(cantidad, compra_id, product_id) VALUES (10,2,4);
+INSERT INTO compra_det(cantidad, compra_id, product_id) VALUES (12,2,5);
+INSERT INTO compra_det(cantidad, compra_id, product_id) VALUES (20,2,1);
+INSERT INTO compra_det(cantidad, compra_id, product_id) VALUES (10,3,4);
+INSERT INTO compra_det(cantidad, compra_id, product_id) VALUES (12,3,5);
+INSERT INTO compra_det(cantidad, compra_id, product_id) VALUES (20,3,1);
+
 --INSERT INTO compra(fecha, provider_id) VALUES (NOW(),2);
-
---INSERT INTO compra_det(cantidad, compra_id, product_id) VALUES (10,1,4);
---INSERT INTO compra_det(cantidad, compra_id, product_id) VALUES (12,1,5);
---INSERT INTO compra_det(cantidad, compra_id, product_id) VALUES (20,1,1);
 

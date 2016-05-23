@@ -12,5 +12,6 @@ public interface CompraMappers {
 
         public void register(Compra c);
         public void registerDetalle (CompraDetalle c);
+        public Compra findById(Long id);
 }
 

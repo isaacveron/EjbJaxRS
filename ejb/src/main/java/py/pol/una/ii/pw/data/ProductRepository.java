@@ -16,12 +16,13 @@
  */
 package py.pol.una.ii.pw.data;
 
+import org.apache.ibatis.session.SqlSession;
+import py.pol.una.ii.pw.mapper.ProductMappers;
 import py.pol.una.ii.pw.model.Product;
-import py.pol.una.ii.pw.model.ProductoDuplicado;
 import py.pol.una.ii.pw.service.ProductoDuplicadoRegistration;
+import py.pol.una.ii.pw.util.MyBatisUtil;
 
 import javax.ejb.Stateless;
-import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -42,8 +43,19 @@ public class ProductRepository {
     @Inject
     private EntityManager em;
 
+//    public Product findById(Long id) {
+//        return em.find(Product.class, id);
+//    }
+
     public Product findById(Long id) {
-        return em.find(Product.class, id);
+
+        SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession();
+        try {
+            ProductMappers Mapper = sqlSession.getMapper(ProductMappers.class);
+            return Mapper.findById(id);
+        } finally {
+            sqlSession.close();
+        }
     }
 
     public Boolean findByName(String nombre) {

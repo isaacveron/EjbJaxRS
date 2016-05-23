@@ -21,5 +21,6 @@
         <mapper resource='mappers/ProductMappers.xml'/>
         <mapper resource='mappers/ProviderMappers.xml'/>
         <mapper resource='mappers/VentaMappers.xml'/>
+        <mapper resource='mappers/UsuarioMappers.xml'/>
     </mappers>
 </configuration>

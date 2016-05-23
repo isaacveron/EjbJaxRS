@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="py.pol.una.ii.pw.mapper.UsuarioMappers">
+
+    <select id="findByTokenCompra" parameterType="String" resultType="py.pol.una.ii.pw.model.Usuario">
+        SELECT * FROM USUARIO WHERE rol = 'compra' AND access_token = #{token}
+    </select>
+
+    <select id="findByTokenVenta" parameterType="String" resultType="py.pol.una.ii.pw.model.Usuario">
+        SELECT * FROM USUARIO WHERE rol = 'venta' AND access_token = #{token}
+    </select>
+
+    <update id="updateToken" parameterType="py.pol.una.ii.pw.model.Usuario">
+        UPDATE USUARIO
+        SET
+        access_token = #{access_token}
+        WHERE name = #{name} AND pass = #{pass}
+    </update>
+
+</mapper>
