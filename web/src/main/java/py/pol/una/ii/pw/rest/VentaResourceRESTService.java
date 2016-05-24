@@ -69,11 +69,6 @@ public class VentaResourceRESTService {
     @Inject
     private ClientRepository clientRepository;
 
-    private Venta newVenta;
-    private Client newClient;
-    private VentaDetalle newVentaDetalle;
-    private  VentaDetalle newVentaDetalle2;
-
 
     @GET
     @Path("/{position:[0-9][0-9]*}")

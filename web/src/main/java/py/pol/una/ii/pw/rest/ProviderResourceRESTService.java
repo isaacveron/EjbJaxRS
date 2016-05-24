@@ -126,7 +126,7 @@ public class ProviderResourceRESTService {
         return builder.build();
     }
 
-
+    /*
     @POST
     @Consumes("multipart/form-data")
     @Produces("application/json")
@@ -174,6 +174,6 @@ public class ProviderResourceRESTService {
         return Response.status(200).build();
 
 
-    }
+    }*/
 
 }

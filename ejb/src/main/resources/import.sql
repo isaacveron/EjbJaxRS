@@ -63,9 +63,9 @@ INSERT INTO usuario(name, pass, rol, access_token) VALUES ('Jose 2', 'pass', 've
 INSERT INTO usuario(name, pass, rol, access_token) VALUES ('Marcos 2', 'pass', 'compra', '');
 INSERT INTO usuario(name, pass, rol, access_token) VALUES ('Marcos 2', 'pass', 'venta', '');
 
-INSERT INTO compra(fecha, provider_id) VALUES ('2016-05-05',1);
-INSERT INTO compra(fecha, provider_id) VALUES ('2016-05-06',2);
-INSERT INTO compra(fecha, provider_id) VALUES ('2016-05-14',1);
+INSERT INTO compra(fecha, usuario_id) VALUES ('2016-05-05',1);
+INSERT INTO compra(fecha, usuario_id) VALUES ('2016-05-06',2);
+INSERT INTO compra(fecha, usuario_id) VALUES ('2016-05-14',1);
 
 INSERT INTO compra_det(cantidad, compra_id, product_id) VALUES (10,1,4);
 INSERT INTO compra_det(cantidad, compra_id, product_id) VALUES (12,1,5);

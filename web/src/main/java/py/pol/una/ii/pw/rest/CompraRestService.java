@@ -71,10 +71,6 @@ public class CompraRestService {
     @Inject
     CompraDetalle compraDetalle;
 
-    private Compra newCompra;
-    private Provider newProvider;
-    private CompraDetalle newCompraDetalle;
-
 
     @GET
     @Path("/ordenBy/{by_attribute}/{mode}/{position:[0-9][0-9]*}")

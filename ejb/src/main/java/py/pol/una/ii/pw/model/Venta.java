@@ -33,12 +33,12 @@ public class Venta {
 
     public Venta(Usuario usuario, Date fecha, List<VentaDetalle> ventaDetalles) {
         this.usuario = usuario;
-        this.fecha = fecha;
+        this.fecha = new Date(fecha.getTime());
         this.ventaDetalles = ventaDetalles;
     }
 
     public Venta(Date fecha, Usuario usuario) {
-        this.fecha = fecha;
+        this.fecha = new Date(fecha.getTime());
         this.usuario = usuario;
     }
 
@@ -51,11 +51,11 @@ public class Venta {
     }
 
     public Date getFecha() {
-        return fecha;
+        return (Date)fecha.clone();
     }
 
     public void setFecha(Date fecha) {
-        this.fecha = fecha;
+        this.fecha = new Date(fecha.getTime());
     }
 
     public List<VentaDetalle> getVentaDetalles() {

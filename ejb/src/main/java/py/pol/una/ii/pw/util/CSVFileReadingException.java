@@ -10,7 +10,7 @@ public class CSVFileReadingException extends Exception{
     private String message;
 
     public CSVFileReadingException(){
-        this.message = new String("");
+        this.message ="";
     }
 
     public CSVFileReadingException(String m){
